@@ -13,7 +13,7 @@ def generate_survey_data(num_responses=10):
     }
     return pd.DataFrame(data)
 
-st.title("Random Survey Data Display")
+st.title("Example Report")
 
 # Generating random survey data
 num_responses = st.sidebar.number_input("Number of Responses", min_value=1, value=10, step=1)
