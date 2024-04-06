@@ -13,7 +13,9 @@ def init_firebase():
         firebase_admin.initialize_app(cred)
     return firestore.client()
 
-db = init_firebase()
+@st.cache(hash_funcs={_thread.RLock: lambda _: None})
+def init_firebase():
+    # Your existing code
 
 # Function to fetch data from Firestore
 def fetch_data(collection_name):
