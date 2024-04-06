@@ -3,4 +3,7 @@ dependencies:
   - numpy
   - pandas
   - plotly
-  - firebase_admin
+  - python=3.9
+  - pip
+  - pip:
+      - firebase_admin
