@@ -1,56 +1,56 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from wordcloud import WordCloud
+import pandas as pd
+import seaborn as sns
 
-# Function to generate random survey data
-def generate_survey_data(num_responses=10):
-    data = {
-        "Age": np.random.randint(18, 65, size=num_responses),
-        "Gender": np.random.choice(["Male", "Female", "Other"], size=num_responses),
-        "Satisfaction": np.random.choice(["Very Satisfied", "Satisfied", "Neutral", "Dissatisfied", "Very Dissatisfied"], size=num_responses),
-        "Recommend": np.random.choice(["Yes", "No"], size=num_responses)
-    }
-    return pd.DataFrame(data)
-
-# Function to create a random word cloud
+# Random data for word cloud
 def create_wordcloud():
     words = ['meeting', 'zoom', 'family', 'app', 'friend', 'good', 'business', 'people', 'services']
     word_freq = {word: np.random.randint(100, 1000) for word in words}
     wordcloud = WordCloud(width=800, height=400).generate_from_frequencies(word_freq)
     return wordcloud
 
-# Main Streamlit app
-st.title("Survey Data and Topics Visualization")
+# Random data for bar chart
+def create_bar_chart():
+    categories = ['technical', 'billing', 'support', 'bugs', 'urgent', 'performance']
+    values = np.random.randint(100, 5000, size=len(categories))
+    df = pd.DataFrame({'categories': categories, 'values': values})
+    return df
 
-# Sidebar configuration
-num_responses = st.sidebar.number_input("Number of Survey Responses", min_value=1, value=10, step=1)
-app_mode = st.sidebar.selectbox("Select App Mode", ["Survey Data", "Topics and Sentiment"])
+# Random data for line chart
+def create_line_chart_data():
+    categories = ['technical', 'billing', 'support', 'bugs', 'urgent', 'performance']
+    df = pd.DataFrame({'Date': pd.date_range(start='1/1/2024', periods=100)})
+    for category in categories:
+        df[category] = np.random.randint(100, 1000, size=len(df))
+    return df
 
-if app_mode == "Survey Data":
-    # Generate and display survey data
-    survey_data = generate_survey_data(num_responses)
-    st.write("Survey Responses:")
-    st.table(survey_data)
-    
-    # Data visualizations for survey data
-    st.header("Data Visualizations")
+# Streamlit app layout
+st.title('Topics and Sentiment')
 
-    # Age Distribution
-    fig, ax = plt.subplots()
-    ax.hist(survey_data['Age'], bins='auto')
-    ax.set_title("Age Distribution")
-    st.pyplot(fig, use_container_width=True)
+# Word Cloud
+wordcloud = create_wordcloud()
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.imshow(wordcloud, interpolation='bilinear')
+ax.axis('off')
+st.pyplot(fig)
 
-    # Additional visualizations can follow the same pattern
+# Bar Chart
+df_bar = create_bar_chart()
+fig, ax = plt.subplots()
+sns.barplot(x='categories', y='values', data=df_bar, ax=ax)
+plt.xticks(rotation=45, ha='right')
+st.pyplot(fig)
 
-elif app_mode == "Topics and Sentiment":
-    # Word Cloud Visualization
-    wordcloud = create_wordcloud()
-    fig, ax = plt.subplots()
-    ax.imshow(wordcloud, interpolation='bilinear')
-    ax.axis('off')
-    st.pyplot(fig, use_container_width=True)
+# Line Chart
+df_line = create_line_chart_data()
+fig, ax = plt.subplots()
+for category in df_line.columns[1:]:
+    ax.plot(df_line['Date'], df_line[category], label=category)
+plt.legend(loc='upper left')
+st.pyplot(fig)
 
-    # Additional topics and sentiment visualizations can be added here
+# Placeholder for PDF download button (to be implemented)
+st.markdown('Download PDF (Functionality to be implemented)')
