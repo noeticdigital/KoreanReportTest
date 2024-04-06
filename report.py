@@ -18,9 +18,10 @@ def init_firebase():
     # Your existing code
 
 # Function to fetch data from Firestore
+    
 def fetch_data(collection_name):
     docs = db.collection(collection_name).get()
-    return pd.DataFrame([doc.to_dict() for doc in docs])
+        return pd.DataFrame([doc.to_dict() for doc in docs])
 
 # Streamlit UI setup
 st.title('Firestore Data Viewer')
