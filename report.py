@@ -53,4 +53,4 @@ plt.legend(loc='upper left')
 st.pyplot(fig)
 
 # Placeholder for PDF download button (to be implemented)
-st.markdown('Download PDF (Functionality to be implemented)')
+st.markdown('Download PDF --')
