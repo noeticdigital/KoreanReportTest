@@ -1,9 +1,8 @@
 name: stats
 dependencies:
-  - numpy
-  - pandas
-  - plotly
-  - python=3.9
-  - pip
-  - pip:
-      - firebase_admin
+- streamlit
+- matplotlib
+- wordcloud
+- pandas
+- seaborn
+- numpy
